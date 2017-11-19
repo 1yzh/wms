@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<!-- package声明pojo类所在的包,如果不写那么在class的name属性里需要指定包名全路径
+    schema指数据库模式,一个模式下可以有多张表
+    -->
+<hibernate-mapping package="com._520it.wms.domain">
+    <!-- class指映射一下pojo类,提供了公共的无参构造方法,通过反射产生对象
+            属性用private修饰,并且生成get,set方法
+            类不能用final来修饰,
+            类需要指明标识  ,即id属性
+            name:表示pojo类名
+            table:标识对应的数据库表名 -->
+    <class name="Depot" table="depot">
+        <!-- id:表示实体类的标识
+            对应数据库表中的主键
+            name:是指实体类的标识属性名
+            column表示对应数据库表的列名,如果不写,则数据库表中列名和属性名一致
+            length:标识数据库表中对应数据类型的长度,如果不写有默认长度
+            type表示类型,如果不写hibernate可以找到对应的pojo类的属性的类型,可以写成int,string,java.lang.Integer等等 -->
+        <id name="id" column="id">
+            <!-- 主键生成策略
+            native:根据底层数据库能力选择identity,sequence,或者hilo中的一个
+
+            -->
+            <generator class="native"/>
+        </id>
+        <!-- 实体类属性 -->
+        <property name="name"/>
+        <property name="location"/>
+    </class>
+
+</hibernate-mapping>

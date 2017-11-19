@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+    <constant name="struts.devMode" value="true"/>
+    <constant name="struts.ui.theme" value="simple"/>
+    <!--强制使用中文格式化时间-->
+    <constant value="zh_CN" name="struts.locale"/>
+    <package name="pssPkg" extends="struts-default" namespace="/">
+
+        <!--配置一个interceptor-->
+        <interceptors>
+            <interceptor name="loginInterceptor" class="com._520it.wms.web.interceptor.LoginInterceptor"/>
+            <interceptor name="permissionInterceptor" class="com._520it.wms.web.interceptor.permissionInterceptor"/>
+            <!--配置一个自己的stack-->
+            <interceptor-stack name="myStack">
+                <!--配置拦截器顺序-->
+                <interceptor-ref name="store">
+                    <param name="operationMode">AUTOMATIC</param>
+                </interceptor-ref>
+                <interceptor-ref name="loginInterceptor"/>
+                <interceptor-ref name="paramsPrepareParamsStack"/>
+                <interceptor-ref name="permissionInterceptor"/>
+            </interceptor-stack>
+        </interceptors>
+        <default-interceptor-ref name="myStack"/>
+        <global-results>
+            <result name="login">login.jsp</result>
+            <result name="nopermission">WEB-INF/views/commons/nopermission.jsp</result>
+            <result name="error">WEB-INF/views/commons/error.jsp</result>
+        </global-results>
+        <global-exception-mappings>
+            <exception-mapping exception="java.lang.Exception" result="error"></exception-mapping>
+        </global-exception-mappings>
+        <action name="login" class="com._520it.wms.web.action.LoginAction">
+            <!--logininterceptor不能配置在loginaction中。loginaction要保证程序先登录进去-->
+            <interceptor-ref name="paramsPrepareParamsStack"/>
+            <result name="login">login.jsp</result>
+            <result type="redirectAction">main</result>
+        </action>
+        <!--另外配置一个action，转发到main.jsp页面，其他重定向到这个action-->
+        <action name="main">
+            <result>WEB-INF/main.jsp</result>
+        </action>
+        <action name="systemMenu_*" class="systemMenuAction" method="{1}">
+            <result name="list">WEB-INF/views/systemMenu/list.jsp</result>
+            <result name="input">WEB-INF/views/systemMenu/input.jsp</result>
+            <result type="redirectAction">
+                <param name="actionName">systemMenu</param>
+                <param name="qo.parentId">${qo.parentId}</param>
+            </result>
+        </action>
+        <action name="*_*" class="{1}Action" method="{2}">
+            <result name="list">WEB-INF/views/{1}/list.jsp</result>
+            <result name="input">WEB-INF/views/{1}/input.jsp</result>
+            <result name="{2}">WEB-INF/views/{1}/{2}.jsp</result>
+            <result type="redirectAction">{1}</result>
+        </action>
+
+    </package>
+</struts>

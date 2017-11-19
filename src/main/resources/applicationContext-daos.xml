@@ -1,0 +1,43 @@
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="   http://www.springframework.org/schema/beans       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--配置DAO-->
+    <bean id="baseDao" abstract="true">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <bean id="departmentDao" class="com._520it.wms.dao.impl.DepartmentDaoImpl" parent="baseDao">
+    </bean>
+    <bean id="employeeDao" class="com._520it.wms.dao.impl.EmployeeDaoImpl" parent="baseDao">
+    </bean>
+    <bean id="permissionDao" class="com._520it.wms.dao.impl.PermissionDaoImpl" parent="baseDao">
+    </bean>
+    <bean id="roleDao" class="com._520it.wms.dao.impl.RoleDaoImpl" parent="baseDao">
+    </bean>
+    <bean id="catDao" class="com._520it.wms.dao.impl.CatDaoImpl" parent="baseDao">
+    </bean>
+    <bean id="systemMenuDao" class="com._520it.wms.dao.impl.SystemMenuDaoImpl" parent="baseDao">
+    </bean>
+    <bean id="brandDao" class="com._520it.wms.dao.impl.BrandDaoImpl" parent="baseDao">
+    </bean>
+    <bean id="supplierDao" class="com._520it.wms.dao.impl.SupplierDaoImpl" parent="baseDao">
+    </bean>
+    <bean id="productDao" class="com._520it.wms.dao.impl.ProductDaoImpl" parent="baseDao">
+    </bean>
+    <bean id="orderBillDao" class="com._520it.wms.dao.impl.OrderBillDaoImpl" parent="baseDao">
+    </bean>
+    <bean id="depotDao" class="com._520it.wms.dao.impl.DepotDaoImpl" parent="baseDao">
+    </bean>
+    <bean id="stockIncomeBillDao" class="com._520it.wms.dao.impl.StockIncomeBillDaoImpl" parent="baseDao">
+    </bean>
+    <bean id="productStockDao" class="com._520it.wms.dao.impl.ProductStockDaoImpl" parent="baseDao">
+    </bean>
+    <bean id="clientDao" class="com._520it.wms.dao.impl.ClientDaoImpl" parent="baseDao">
+    </bean>
+    <bean id="stockOutcomeBillDao" class="com._520it.wms.dao.impl.StockOutcomeBillDaoImpl" parent="baseDao">
+    </bean>
+    <bean id="chartDAO" class="com._520it.wms.dao.impl.ChartDaoImpl" parent="baseDao">
+    </bean>
+    <bean id="saleAccountDao" class="com._520it.wms.dao.impl.SaleAccountDaoImpl" parent="baseDao">
+    </bean>
+</beans>

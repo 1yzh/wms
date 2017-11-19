@@ -1,0 +1,2 @@
+<bean id="${objectName}Dao" class="${basePkg}.dao.impl.${className}DaoImpl" parent="baseDao">
+</bean>
